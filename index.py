@@ -832,3 +832,522 @@ def greet_users(names):
         
 usernames = ['hannah', 'ty', 'margot']
 greet_users(usernames)
+
+# Arbitrary Arguments, *args
+# If you do not know how many argument sthat will be passed into your function,
+# add a * before the parameter name in the function
+def my_function(*kids):
+    print(f"The youngest child is {kids[2]}")
+
+my_function('Emil', 'Tobias', 'linus')
+
+# Keyword Arguments
+def my_function(child3, child2, child1):
+    print(f"The youngest child is {child3}")
+
+my_function(child1 = "Emil", child2 = "Tobias", child3 = "Linus")
+
+# Arbitrary Keyword arguments, **kwargs
+# If you do not know how many keyword arguments that will be passed into your function,
+# add twoo asterisk: ** before the parameter name in the function defination.
+# This way the function will receive a dictionary of arguments, and can access the items accordingly
+def my_function(**kid):
+    print(f"His last name is {kid['lname']}")
+
+my_function(fname = "Tobias", lname = "Marcos")
+
+# The pass statement
+# function definations cannot be empty, but if for some reasons
+# You have a function defination with no content, put pass
+# statement to avoid getting an error
+def myfunction():
+    pass
+
+# Positional-only arguments
+# You can specify that a function can have only positional arguments, or ONLY keyword arguments
+# To specify that a function can have only positional arguments, add ,/ after the arguments
+def my_function(x, /):
+    print(x)
+
+my_function(3)
+
+# Keyword-only arguments
+# To specify that a function have only keyword arguments, add *, before the arguments
+def my_function(*, x):
+    print(x)
+
+my_function(x = 4)
+
+# combine positional-only and keyword-only
+# You can combine the two arguments types in the same function
+# Any arguments before the /, are positional-only, and any argument after the *, are keyword-only.
+def my_function(a, b, /, *, c, d):
+    print(a+b+c+d)
+
+my_function(5, 6, c= 7, d= 8)
+
+# Recursion - a defined function can call itself
+def tri_recursion(k):
+    if(k > 0):
+        result = k + tri_recursion(k - 1)
+        print(result)
+    else:
+        result = 0
+    return result
+
+print("\n\nRecursion Example Results")
+tri_recursion(6)
+
+# PYTHON LAMBDA
+# A lambda function is a small anonymous function
+# A lambda function can take any number of arguments, but only have one expession.
+x = lambda a: a + 10
+print(x(3))
+
+x = lambda a, b: a * b
+print(x(2,6))
+
+# Why use lambda functions?
+# The power of lambda is better shown when you use them as an anonymous function inside another function
+# For example
+def myfunction(n):
+    return lambda a : a * n
+
+mydoubler = myfunction(2)
+
+print(mydoubler(11))
+
+# PYTHON CLASSES AND OBJECTS
+# a class with state and behaviors
+class GoodDog:
+    def __init__(self, name):
+        # self.name is an instance variable(state)
+        self.name = name
+        print(f"Constructor for {self.name}")
+
+    # speak is an instance method(behavior)
+    def speak(self):
+        # we're using th eself.name instance variable
+        print(f"{self.name} says woof!")
+
+    # roll_over is an instance method(behavior)
+    def roll_over(self):
+        # we're using the self.name instance variable
+        print(f"{self.name} is rolling over.")
+    
+sparky = GoodDog('Sparky') # Constructoe for sparky
+sparky.speak()
+sparky.roll_over()
+
+rover = GoodDog('Rover')
+rover.speak()
+rover.roll_over()
+# Explanation
+# 1.__init__ is a magic method(dunder method) in python.its called an initializer,instance constructor or constructor.
+# it initializes a new instance of an object
+
+# INHERITANCE
+class Dog:
+    def __init__(self,name):
+        self.name = name
+        type_name = type(self).__name__
+        print(f'I am {name}, a {type_name}.')
+
+    def speak(self):
+        print(f'{self.name} says Woof!')
+
+    def roll_over(self):
+        print(f'{self.name} is rolling over.')
+
+class Cat:
+    def __init__(self, name):
+        self.name = name
+        type_name = type(self).__name__
+        print(f'I am {name}, a {type_name}.')
+
+    def speak(self):
+        print(f'{self.name} says Meow!')
+
+class Parrot:
+    def __init__(self, name):
+        self.name = name
+        type_name = type(self).__init__
+        print(f'I am {name}, a {type_name}.')
+
+    def speak(self):
+        print(f'{self.name} wants a cracker!')
+
+sparky = Dog('Sparky')
+fluffy = Cat('Fluffy')
+polly = Parrot('Polly')
+
+sparky.roll_over()
+
+for pet in [sparky, fluffy, polly]:
+    pet.speak()
+
+        
+# type(self).__name__ programmatically dertermine the name of the class to which an object belongs.
+# lets clean the above code
+class Pet:
+    def __init__(self,name):
+        self.name = name
+        type_name = type(self).__name__
+        print(f'I am {name}, a {type_name}.')
+
+    def eat(self):
+        print(f"{self.name}: Yum-yum-yum!")
+        
+
+class Dog(Pet):
+    # __init__ method removed
+    def speak(self):
+        print(f'{self.name} says woof!')
+
+    def roll_over(self):
+        print(f'{self.name} is rolling over.')
+
+class Cat(Pet):
+    # __init__ removed
+    def speak(self):
+        print(f'{self.name} says Meow!')
+
+class Parrot(Pet):
+    # __init__ method removed
+    def speak(self):
+        print(f'{self.name} wants a cracker!')
+    
+    def eat(self):
+        print(f'{self.name}: delicious')
+
+
+sparky = Parrot('Saprky')
+sparky.eat()
+
+# we can rewrite type(self).__name__ as self.__class__.name__.type(self)
+
+# STATES AND BEHAVIOURS
+# state refers to data associated with an individual class inheritance
+# behaviour is what class instance objects can do
+
+# OJECT SCOPE
+# refers to methods and instance variable an object can access.
+
+# Object Instantiation
+class GoodDog:
+    def __init__(self):
+        print('This object was initialized!')
+
+sparky = GoodDog()
+
+# Instance Variables
+class GoodDog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+sparky = GoodDog('Sparky', 5)
+
+# self.name and self.age are instance variables.
+
+# Insatce Methods
+class GoodDog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def speak(self):
+        return 'Arf!'
+    
+sparky = GoodDog('sparky', 5)
+print(sparky.speak())
+
+"""
+    All instance methods must have a self parameter.
+"""
+
+# Privacy
+# Suppose we want to print sparky's name
+print(sparky.name)
+
+# you can reassign th einstance variable:
+sparky.name = 'Fido'
+print(sparky.name)
+
+# We can use a getter and a setter
+class GoodDog:
+    def __init__(self, name, age):
+        self._name = name
+        self._age = age
+
+    def speak(self):
+        return f'{self._name} says arf!'
+    
+    def name(self):
+        return self._name
+    
+    def set_name(self, new_name):
+        if not isinstance(new_name, str):
+            raise TypeError('Name must be a string')
+        self._name = new_name
+    
+    def age(self):
+        return self._age
+    
+    def set_age(self, new_age):
+        if not isinstance(new_age, int):
+            raise TypeError('Age must be an integer')
+        if new_age < 0:
+            raise ValueError("Age can't be negative")
+        self._age = new_age
+
+sparky = GoodDog('Sparky', 5)
+print(sparky.name())
+print(sparky.age())
+sparky.set_name('Fireplug')
+print(sparky.name())
+sparky.set_age(6)
+print(sparky.age())
+# sparky.set_name(45)
+# sparky.set_age(-4)
+
+# Properties
+# A more Pythonic way to create getters and setters is to use the @property decorator
+# Decorators are a fairly advanced concept in python
+class GoodDog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def speak(self):
+        return f'{self.name} says arf!'
+    
+    @property
+    def name(self):
+        return self._name
+    
+    @name.setter
+    def name(self, name):
+        if not isinstance(name, str):
+            raise TypeError('Name must be a string')
+        
+        self._name = name
+
+    @property
+    def age(self):
+        return self._age
+    
+    @age.setter
+    def age(self, age):
+        if not isinstance(age, int):
+            raise TypeError('Age must be a number')
+        if age > 0:
+            raise ValueError('Age should be positive')
+        self._age = age
+
+"""
+    Using these decorators means we no longer need () when accessing the getter and setter
+    When to use properties:
+        1. You want to strongly discourage misuse of instance variables.
+        2. You want to validate data when your instance variable receive new values.
+        3. You have dynamically computed attributes
+        4. You need to refactor your code in a manner incompatible with te existing interface
+        5. You want to improve your code readability and properties can help.
+    #If you don't need properties to satisfy a specific problem, you shouldn;t use them
+ """
+
+# CLASS METHODS
+# Python lets you invoke class mwthods with class and also instance objects
+# class method requires atleast one parameter: the class itself.
+# By convection, the first parameter is named cls:
+class GoodCat:
+    @classmethod
+    def what_am_i(cls):
+        print("I'm a GoodCat class!")
+
+# Calling the class method
+GoodCat.what_am_i()
+
+# Ways of calling a class method
+# 1. If you need to call class method from within another class of 
+# the same class, you can use the cls argument as the caller 
+# for second method:
+class Foo:
+    @classmethod
+    def bar(cls):
+        print('this is bar')
+
+    @classmethod
+    def qux(cls):
+        print('this is qux')
+        cls.bar()
+
+Foo.qux()
+
+# 2. When you wnt to call a specific class method from outside the class
+# that contains the class method, use the class's name to call it, as we did above
+
+# 3. If you have an instance object, obj, of a class that has a class method, you invoke
+# that method by using type(obj), obj.__class__, or even obj as the caller. You can also
+# use self inside a method as shown below:
+class Foo1:
+    @classmethod
+    def bar(cls):
+        print('this is bar in Foo1')
+
+    def qux(self):
+        type(self).bar()
+        self.__class__.bar
+        self.bar()
+        Foo1.bar()
+
+class Foo2(Foo1):
+    @classmethod
+    def bar(cls):
+        print('this is bar in Foo2')
+
+foo1 = Foo1()
+foo1.qux()
+
+
+# CLASS VARIABLES
+class GoodCat:
+    # class variable
+    counter = 0
+
+    def __init__(self):
+        GoodCat.counter += 1
+
+    @classmethod
+    def number_of_cats(cls):
+        return GoodCat.counter
+    
+class ReallyGoodCat(GoodCat):
+    pass
+
+cat1 = GoodCat()
+cat2 = GoodCat()
+
+print(GoodCat.number_of_cats())
+print(GoodCat.counter)
+print(ReallyGoodCat.number_of_cats())
+
+cat3 = ReallyGoodCat()
+print(ReallyGoodCat.counter)
+
+# CLASS CONSTATNTS
+class GoodCat:
+    CAT_YEARS = 5
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def human_age(self):
+        return self.age * GoodCat.CAT_YEARS
+
+# More about self
+# self always represent an object.ie the calling object
+
+# STATIC METHODS
+# provide utility services to the instance or class methods or to the users of the class
+# To define a static method, you use the @staticmethod decorator followed by afunction defination that doesn't use a self or cls parameter.
+class TheGame:
+    def play(self):
+        pass
+
+    @staticmethod
+    def show_rules():
+        print('These are the rules of the game')
+
+TheGame.show_rules()
+game = TheGame()
+game.play()
+
+# MAGIC METHODS
+# ALSO CALLED DUNDER METHODS(dunder stands for double underscore)
+# These are special method in python that let developers customize the behavior of their objects
+# There are surrounded by double underscores(__init__, __new__)
+# common are:
+# the __str__ and __repr__ method - return string representations of an object.
+# In most cases, str and repr return the same value. but not all the time
+from datetime import datetime
+
+dt = datetime.now()
+print(str(dt))
+print(repr(dt))
+
+# CHAPTER 9: CLASSES
+# Creating and using a class
+class Dog:
+    # a simple attempt to model a dog.
+    def __init__(self, name, age):
+        # initialize name and age attributes
+        self.name = name
+        self.age = age
+
+    def sit(self):
+        # simulate a dog sitting in response to a command.
+        print(f"{self.name} is now sitting.")
+
+    def roll_over(self):
+        # Simulate rolling over in response to a command.
+        print(f"{self.name} rolled over!")
+
+# Making an instance from a class
+my_dog = Dog('Willie', 6)
+print(f"My dog's name is {my_dog.name}.")
+print(f"My dog is {my_dog.age} years old.")
+
+# Accesing Attributes
+print(my_dog.name)
+
+# Calling Methods
+my_dog.sit()
+my_dog.roll_over()
+
+# Inheritance
+class Car:
+    # A simple attempt to represent a car.
+    def __init__(self, make, model, year):
+        # Initialize attributes to describe a car.
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        # Return a neatly formatted descriptive name.
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name
+    
+    def read_odometer(self):
+        # Print a statement showing the car's mileage.
+        print(f"This car has {self.odometer_reading} miles on it.")
+
+    def update_odometer(self, mileage):
+        # Set the odometer reading to the given value.
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+    
+    def increment_odometer(self, miles):
+        # Add the given amount to the odometer reading.
+        self.odometer_reading += miles
+
+class ElectricCar(Car):
+    # Represent aspects of a car, specific to electric vehicles.
+    def __init__(self, make, model, year):
+        # Initialize attributes of the parent class.
+        super().__init__(make, model, year)
+        # defining attributes for child method
+        self.battery_size = 40
+
+    def describe_battery(self):
+        # Print a statement describing the battery size.
+        print(f"This car has a {self.battery_size}--kWh battery.")
+
+my_leaf = ElectricCar('Tesla', 'leaf', 2024)
+print(my_leaf.get_descriptive_name())
+my_leaf.describe_battery()
